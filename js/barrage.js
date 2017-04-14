@@ -1,13 +1,5 @@
 (function(){
-var rand = function(num1,num2){
-    if(!num1 && !num2){
-        return Math.random();//随机小数
-    }
-    if(!num2 && num1){
-        return parseInt(Math.random() * (num1 + 1));//随机0~num1
-    }
-    return parseInt(Math.random() * (num2 - num1 + 1) + num1);//随机num1~num2
-}
+// 获取支持的transition事件
 function getTransitionEndEventName () {
     var obj = {
         'WebKitTransitionEvent': 'webkitTransitionEnd',
@@ -26,7 +18,7 @@ function getTransitionEndEventName () {
     }
     return ret;
 }
-
+// 获取指定class的祖先
 function getParent(node, className) {
     if (node.className && node.className.indexOf(className) > -1) {
         return node
@@ -64,17 +56,37 @@ function debounce (func, wait) {
     };
 }
 
+function mergeConf (defaultObj, newObj) {
+    if (!newObj) {
+        return defaultObj
+    }
+    var i = 0
+    for (i in defaultObj) {
+        if (typeof newObj[i] !== 'undefined' && newObj[i] !== NaN) {
+            defaultObj[i] = newObj[i]
+        }
+    }
+    return defaultObj
+}
+
+var d = {
+    name: 'xx',
+    age: 234,
+    arr: [],
+    isLoop: true,
+}
+console.log(mergeConf(d,{age: 345, isLoop: false}))
 
 var STATUS_INIT = 1
 var STATUS_RUNNING = 2
 var STATUS_PAUSE = 3
 var MAX_RUNNING = 30
-function barrage (wrapper) {
+function barrage (wrapper, config) {
     this.status = STATUS_INIT
     this.waitingList = []
     this.runningList = []
     this._count = 0
-    this.conf = {
+    this.conf = mergeConf({
         wrapperClass: 'barrage-wrapper full',
         barrageClassPrefix: 'barrage',
         barrageAnimationClass: 'animation',
@@ -85,7 +97,8 @@ function barrage (wrapper) {
         isLoop: true,
         // 显示位置 top/bottom/middle/full
         position: 'full'
-    }
+    }, config)
+
     this.init(wrapper)
 }
 barrage.prototype.init = function(wrapper) {
@@ -178,7 +191,7 @@ barrage.prototype.init = function(wrapper) {
         }
     }, false)*/
 }
-barrage.prototype.push = function(msg) {
+barrage.prototype.send = function(msg) {
     // 如果当前运行不超过最大运行
     if (this.runningList.length < this.conf.maxRunning) {
         this._run(msg)
@@ -196,8 +209,13 @@ barrage.prototype.clear = function(isAll) {
         this.waitingList = []
     } else {
         var i = 0,
-            len = this.waitingList.length || this.conf.maxRunning
-        whlie
+            len = this.waitingList.length > this.conf.maxRunning ? this.conf.maxRunning : this.waitingList.length
+        while (i < len) {
+            var msg = this.waitingList.shift()
+            console.log(msg, i)
+            this._run(msg)
+            i++
+        }
     }
 };
 barrage.prototype.pause = function() {
