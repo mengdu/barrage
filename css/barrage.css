@@ -1,0 +1,106 @@
+.barrage-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+ .barrage-wrapper.full{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+} 
+.barrage-box{
+    height: 40px;
+    display: table;
+    right: 0;
+    color: #efefef;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 48px;
+    min-width: 100px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    /*transform: translateX(100%);*/
+    /*will-change: transform;*/
+    /*-webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);*/
+    
+    /*-webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);*/
+    transform: translate3d(100%,0,0);
+
+    /*-webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;*/
+
+    /*-webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;*/
+    
+}
+.barrage-animation{
+    transition: transform 16s cubic-bezier(0, 0.32, 1, 0.65) 0s;
+    transform: translateX(-100vw) !important;
+}
+.barrage-box .barrage-user,
+.barrage-box .barrage-content,
+.barrage-box .barrage-control{
+    display: table-cell;
+    vertical-align: middle;
+}
+.barrage-box .barrage-img{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: none;
+    display: block;
+}
+.barrage-box .barrage-content{
+    padding: 0 10px;
+    max-width: 600px;
+    white-space: nowrap;/*文本不换行*/
+    text-overflow: ellipsis;
+    overflow: hidden;/*以上三行实现溢出显示省略号*/
+}
+.barrage-box .barrage-control{
+    padding: 0 10px 0 0;
+}
+.barrage-box .barrage-btn-close{
+    color: #4D4D4D;
+    background: rgba(236,240,245,0.8);
+    display: block;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    transform: scale(0);
+    transition: transform 0.1s ease;
+}
+.barrage-box:hover .barrage-btn-close{
+    transform: scale(1);
+}
+/* type */
+.barrage-box.barrage-sm{
+    height: 32px;
+}
+.barrage-box.barrage-sm .barrage-img{
+    width: 32px;
+    height: 32px;
+}
+.barrage-box.barrage-lg{
+    height: 48px;
+}
+.barrage-box.barrage-lg .barrage-img{
+    width: 48px;
+    height: 48px;
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wall</title>
+    <link rel="stylesheet" href="css/barrage.css">
+<style>
+    body{
+        background-image: url(img/58d208f3b678a.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-family: '微软雅黑';
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+</style>
+</head>
+<body>
+<!-- <div class="barrage-wrapper">
+    <div class="barrage-box barrage-sm " style="margin-top: 100px;">
+        <div class="barrage-user">
+            <img src="../admin/img/user1-128x128.jpg" alt="user" class="barrage-img">
+        </div>
+        <div class="barrage-content">
+            <span>啦啦啦，我来啦~</span>
+        </div>
+        <div class="barrage-control">
+            <span class="barrage-btn-close">×</span>
+        </div>   
+    </div>
+    <div class="barrage-box barrage-lg" style="margin-top: 150px;">
+        <div class="barrage-user">
+            <img src="../admin/img/user1-128x128.jpg" alt="user" class="barrage-img">
+        </div>
+        <div class="barrage-content">
+            <span>啦啦啦，我来啦~</span>
+        </div>
+        <div class="barrage-control">
+            <span class="barrage-btn-close">×</span>
+        </div>   
+    </div>
+    <div class="barrage-box" style="margin-top: 200px;">
+        <div class="barrage-user">
+            <img src="../admin/img/user1-128x128.jpg" alt="user" class="barrage-img">
+        </div>
+        <div class="barrage-content">
+            <span>helloword !helloword !helloword !helloword !helloword !helloword !helloword !helloword !helloword !</span>
+        </div>
+        <div class="barrage-control">
+            <span class="barrage-btn-close">×</span>
+        </div>   
+    </div>
+</div> -->
+<div id="demo"></div>
+<script type="text/javascript" src="js/barrage.js"></script>
+<script type="text/javascript">
+    // 洗牌算法
+    function shuffle(array) {
+        var m = array.length,
+            t, i;
+        // 如果还剩有元素…
+        while (m) {
+            // 随机选取一个元素…
+            i = Math.floor(Math.random() * m--);
+            // 与当前元素进行交换
+            t = array[m];
+            array[m] = array[i];
+            array[i] = t;
+        }
+        return array;
+    }
+    var b = new barrage('demo')
+
+    var msg = {
+        img: '../admin/img/user1-128x128.jpg',
+        content: '啦啦啦，弹幕君来啦~'
+    }
+    var i = 0
+    var count = 60
+    b.conf.maxRunning = 15
+    // b.conf.hasClose = false 
+    b.conf.position = 'full' 
+
+    var imgs = ['img/user1-128x128.jpg','img/user2-160x160.jpg', 'img/user3-128x128.jpg']
+
+    function runTest () {
+        setTimeout (function () {
+            b.push({
+                img: shuffle(imgs)[0],
+                content: i + '啦啦啦，弹幕君来啦~'
+            })
+            i++
+            if (i < count) {
+                runTest()
+            }
+        }, Math.random()*1000)
+        // for (var i = 0; i < count; i++) {
+        //     b.push({
+        //         img: '../admin/img/user1-128x128.jpg',
+        //         content: i + '啦啦啦，弹幕君来啦~'
+        //     })
+        // }
+    }
+    runTest()
+    b.start()
+
+</script>
+</body>
+</html>
